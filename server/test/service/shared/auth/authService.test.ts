@@ -5,13 +5,18 @@ import {
 import { AuthService } from '../../../../src/service/shared/auth/authService'
 
 import { setupDotEnv } from '../../../setup/dotEnvSetup'
-import { createVerifyPasswordSpy } from '../../../testData/mocks/service/shared.auth/hashManagerMocks'
+import {
+    createHashPassword,
+    createVerifyPasswordSpy,
+} from '../../../testData/mocks/service/shared.auth/hashManagerMocks'
 import { createGenerateTokenSpy } from '../../../testData/mocks/service/shared.auth/authManagerMocks'
 import {
-    createUserWithPasswordErrorSpy,
-    createUserWithPasswordOkSpy,
+    createCreateUserOkSpy,
+    createGetUserWithPasswordErrorSpy,
+    createGetUserWithPasswordOkSpy,
 } from '../../../testData/mocks/model/shared/mongo/repositories/userRepositoryMocks'
 import { createUserMock } from '../../../testData/mocks/model/shared/mongo/entities/userMocks'
+import { createDetailedPasswordValidationOkSpy } from '../../../testData/mocks/shared/utils/auth/passwordValidationMocks'
 
 describe('AuthService Test', () => {
     const realEnv = process.env
@@ -29,7 +34,7 @@ describe('AuthService Test', () => {
     describe('signInUser', () => {
         test('handles Valid Input correctly', async () => {
             const userMock = createUserMock()
-            const getUserSpy = createUserWithPasswordOkSpy(userMock)
+            const getUserSpy = createGetUserWithPasswordOkSpy(userMock)
             const verifyPasswordSpy = createVerifyPasswordSpy(true)
             const generateTokenSpy = createGenerateTokenSpy('lel')
 
@@ -38,7 +43,7 @@ describe('AuthService Test', () => {
                 password: 'password',
             })
 
-            expect(isOK(signInUserResult)).toBe(true)
+            expect(isOK(signInUserResult)).toBeTruthy()
             expect(signInUserResult.ok).toBe('lel')
             expect(getUserSpy).toHaveBeenCalledTimes(1)
             expect(verifyPasswordSpy).toHaveBeenCalledTimes(1)
@@ -46,14 +51,14 @@ describe('AuthService Test', () => {
         })
 
         test('return Error if user doesnt exist', async () => {
-            createUserWithPasswordErrorSpy()
+            createGetUserWithPasswordErrorSpy()
 
             const signInUserResult = await AuthService.signInUser({
                 username: 'bert',
                 password: 'password',
             })
 
-            expect(isErr(signInUserResult)).toBe(true)
+            expect(isErr(signInUserResult)).toBeTruthy()
             expect(signInUserResult.err).toStrictEqual({
                 sendable: true,
                 type: 'User SignIn',
@@ -62,7 +67,7 @@ describe('AuthService Test', () => {
         })
 
         test('return Error if password incorrect', async () => {
-            createUserWithPasswordOkSpy(createUserMock())
+            createGetUserWithPasswordOkSpy(createUserMock())
             createVerifyPasswordSpy(false)
 
             const signInUserResult = await AuthService.signInUser({
@@ -70,12 +75,29 @@ describe('AuthService Test', () => {
                 password: 'password',
             })
 
-            expect(isErr(signInUserResult)).toBe(true)
+            expect(isErr(signInUserResult)).toBeTruthy()
             expect(signInUserResult.err).toStrictEqual({
                 sendable: true,
                 type: 'User SignIn',
                 message: 'Username or Password invalid',
             })
+        })
+    })
+
+    describe('registerUser', () => {
+        test('handles Valid Input correctly', async () => {
+            createDetailedPasswordValidationOkSpy()
+            createHashPassword('hash')
+            createCreateUserOkSpy(createUserMock())
+            createGenerateTokenSpy('lel')
+
+            const registerUserResult = await AuthService.registerUser({
+                username: 'bert',
+                password: 'password',
+            })
+
+            expect(isOK(registerUserResult)).toBeTruthy()
+            expect(registerUserResult.ok).toBe('lel')
         })
     })
 })
