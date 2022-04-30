@@ -1,3 +1,6 @@
 Analyse/*
 server/src/config/*
 */.idea/*
+*/node_modules/*
+*/.env*
+TMP_Storage/*
