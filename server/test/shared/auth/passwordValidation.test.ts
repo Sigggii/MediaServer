@@ -43,7 +43,7 @@ test('validation with details returns details', () => {
 
     expect(unwrapResult(resultDetails)).toStrictEqual({
         sendable: false,
-        type: 'Invalid Password',
+        type: 'Invalid Password1',
         message: [
             'At least 1 Uppercase Letter',
             'At least 1 Digit',
