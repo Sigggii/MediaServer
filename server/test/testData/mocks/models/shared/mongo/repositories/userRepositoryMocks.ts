@@ -27,3 +27,9 @@ export const createCreateUserOkSpy = (returnValue: User) => {
         makeOk(returnValue)
     )
 }
+
+export const createCheckIfUsernameExistsSpy = (returnValue: boolean) => {
+    return spyOn(UserRepository, 'checkIfUsernameExists').mockResolvedValue(
+        returnValue
+    )
+}

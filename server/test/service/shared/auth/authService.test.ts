@@ -14,8 +14,8 @@ import {
     createCreateUserOkSpy,
     createGetUserWithPasswordErrorSpy,
     createGetUserWithPasswordOkSpy,
-} from '../../../testData/mocks/model/shared/mongo/repositories/userRepositoryMocks'
-import { createUserMock } from '../../../testData/mocks/model/shared/mongo/entities/userMocks'
+} from '../../../testData/mocks/models/shared/mongo/repositories/userRepositoryMocks'
+import { createUserMock } from '../../../testData/mocks/models/shared/mongo/entities/userMocks'
 import { createDetailedPasswordValidationOkSpy } from '../../../testData/mocks/shared/utils/auth/passwordValidationMocks'
 
 describe('AuthService Test', () => {
