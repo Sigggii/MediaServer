@@ -42,7 +42,7 @@ test('validation with details returns details', () => {
         PasswordValidation.detailedPasswordValidation('falsy password')
 
     expect(unwrapResult(resultDetails)).toStrictEqual({
-        sendable: true,
+        sendable: false,
         type: 'Invalid Password',
         message: [
             'At least 1 Uppercase Letter',
