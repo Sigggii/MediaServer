@@ -10,12 +10,13 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  test-server:
+    
     runs-on: ubuntu-latest    
-    env: 
-      working-directory: ./server
-
+    defaults:
+      run: 
+        working-directory: server
+    
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
@@ -28,6 +29,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: npm ci    
     - run: npm test
