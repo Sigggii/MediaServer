@@ -4,7 +4,7 @@ import {
 } from '../../../../src/shared/utils/error_handling/result/result_helper'
 import { AuthService } from '../../../../src/service/shared/auth/authService'
 
-import { setupDotEnv } from '../../../setup/dotEnvSetup'
+import { setupDotEnv } from '../../../testData/setup/dotEnvSetup'
 import {
     createHashPassword,
     createVerifyPasswordSpy,
