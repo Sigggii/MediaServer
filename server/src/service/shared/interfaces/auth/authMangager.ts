@@ -7,7 +7,7 @@ export type generateToken = (
     expirationTime: number
 ) => Promise<string>
 
-type VerifyTokenResult = {
+export type VerifyTokenResult = {
     isValid: boolean
     authUserInfo?: AuthUserInformation
 }

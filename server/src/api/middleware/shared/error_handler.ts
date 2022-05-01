@@ -22,6 +22,7 @@ export const errorHandler = async (ctx: Context, next: Next) => {
             } else {
                 logger.error('#ErrorHandler Unexpected Error: ' + err)
             }
+            ctx.status = 500
             ctx.body = {
                 error: {
                     type: 'Unexpected Error',
