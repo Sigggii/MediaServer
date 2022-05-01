@@ -5,6 +5,10 @@ import {
     makeOk,
 } from '../../../../../../../src/shared/utils/error_handling/result/result_helper'
 import spyOn = jest.spyOn
+import {
+    CreateUserError,
+    GetUserError,
+} from '../../../../../../../src/models/shared/interfaces/userResults/userResults'
 
 export const createGetUserWithPasswordOkSpy = (returnValue: User) => {
     return spyOn(UserRepository, 'getUserWithPasswordHash').mockResolvedValue(
@@ -12,19 +16,23 @@ export const createGetUserWithPasswordOkSpy = (returnValue: User) => {
     )
 }
 
-export const createGetUserWithPasswordErrorSpy = () => {
+export const createGetUserWithPasswordErrorSpy = (
+    returnValue: GetUserError
+) => {
     return spyOn(UserRepository, 'getUserWithPasswordHash').mockResolvedValue(
-        makeErr({
-            sendable: false,
-            type: 'Get User',
-            message: 'User doesnt exist',
-        })
+        makeErr(returnValue)
     )
 }
 
 export const createCreateUserOkSpy = (returnValue: User) => {
     return spyOn(UserRepository, 'createUser').mockResolvedValue(
         makeOk(returnValue)
+    )
+}
+
+export const createCreateUserErrorSpy = (returnValue: CreateUserError) => {
+    return spyOn(UserRepository, 'createUser').mockResolvedValue(
+        makeErr(returnValue)
     )
 }
 

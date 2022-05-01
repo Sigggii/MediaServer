@@ -11,12 +11,17 @@ import {
 } from '../../../testData/mocks/service/shared.auth/hashManagerMocks'
 import { createGenerateTokenSpy } from '../../../testData/mocks/service/shared.auth/authManagerMocks'
 import {
+    createCreateUserErrorSpy,
     createCreateUserOkSpy,
     createGetUserWithPasswordErrorSpy,
     createGetUserWithPasswordOkSpy,
 } from '../../../testData/mocks/models/shared/mongo/repositories/userRepositoryMocks'
 import { createUserMock } from '../../../testData/mocks/models/shared/mongo/entities/userMocks'
-import { createDetailedPasswordValidationOkSpy } from '../../../testData/mocks/shared/utils/auth/passwordValidationMocks'
+import {
+    createDetailedPasswordValidationErrorSpy,
+    createDetailedPasswordValidationOkSpy,
+} from '../../../testData/mocks/shared/utils/auth/passwordValidationMocks'
+import { InvalidPasswordError } from '../../../../src/shared/interfaces/utils/auth/validatePasswordResult'
 
 describe('AuthService Test', () => {
     const realEnv = process.env
@@ -51,7 +56,11 @@ describe('AuthService Test', () => {
         })
 
         test('return Error if user doesnt exist', async () => {
-            createGetUserWithPasswordErrorSpy()
+            createGetUserWithPasswordErrorSpy({
+                sendable: false,
+                type: 'Get User',
+                message: 'User doesnt exist',
+            })
 
             const signInUserResult = await AuthService.signInUser({
                 username: 'bert',
@@ -98,6 +107,47 @@ describe('AuthService Test', () => {
 
             expect(isOK(registerUserResult)).toBeTruthy()
             expect(registerUserResult.ok).toBe('lel')
+        })
+
+        test('returns Error on invalidPassword', async () => {
+            createDetailedPasswordValidationErrorSpy({
+                sendable: true,
+                type: 'Invalid Password',
+                message: [InvalidPasswordError.PASS_DIGIT],
+            })
+
+            const registerUserResult = await AuthService.registerUser({
+                username: 'bert',
+                password: 'password',
+            })
+
+            expect(isErr(registerUserResult)).toBeTruthy()
+            expect(registerUserResult.err).toStrictEqual({
+                sendable: true,
+                type: 'Invalid Password',
+                message: [InvalidPasswordError.PASS_DIGIT],
+            })
+        })
+
+        test('return Erorr if couldnt create User', async () => {
+            createDetailedPasswordValidationOkSpy()
+            createCreateUserErrorSpy({
+                sendable: true,
+                type: 'Create User',
+                message: 'User with that Username already exists',
+            })
+
+            const registerUserResult = await AuthService.registerUser({
+                username: 'bert',
+                password: 'password',
+            })
+
+            expect(isErr(registerUserResult)).toBeTruthy()
+            expect(registerUserResult.err).toStrictEqual({
+                sendable: true,
+                type: 'Create User',
+                message: 'User with that Username already exists',
+            })
         })
     })
 })
