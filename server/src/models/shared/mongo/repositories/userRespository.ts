@@ -1,4 +1,4 @@
-import { User, UserWithoutID } from '../../interfaces/user'
+import { UserWithoutID } from '../../interfaces/user'
 import { UserModel } from '../schemas/userSchema'
 import { Types } from 'mongoose'
 import { MakeFieldPartial } from '../../../../shared/utils/advanced_types/makeFieldPartial'
@@ -60,7 +60,7 @@ const getUserWithPasswordHash = async (username: string): GetUserResult => {
     return makeOk(users[0])
 }
 
-const checkIfUsernameExists = async (username: string) => {
+export const checkIfUsernameExists = async (username: string) => {
     return (await UserModel.where('username').equals(username)).length > 0
 }
 
@@ -68,4 +68,5 @@ export const UserRepository = {
     createUser: createUser,
     changePassword: changePassword,
     getUserWithPasswordHash: getUserWithPasswordHash,
+    checkIfUsernameExists: checkIfUsernameExists,
 }
