@@ -34,7 +34,6 @@ const verifyToken: verifyToken = async (token: string) => {
         logger.warn('JWTManager#verifyToken: JWT invalid')
         return {
             isValid: false,
-            authUserInfo: undefined,
         }
     }
 }
