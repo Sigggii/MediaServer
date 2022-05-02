@@ -8,7 +8,7 @@ export const auth = async (ctx: Context, next: Next) => {
     logger.info('AuthMiddleware#auth: authenticating user')
     const jwt = ctx.cookies.get('authCookie')
     if (!jwt) throw UnAuthorizedError
-    if (!(await JWTManager.verifyToken(jwt))) throw UnAuthorizedError
-
+    const verifyTokenResult = await JWTManager.verifyToken(jwt)
+    if (!verifyTokenResult.isValid) throw UnAuthorizedError
     await next()
 }
