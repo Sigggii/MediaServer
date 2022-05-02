@@ -9,7 +9,12 @@ export const errorHandler = async (ctx: Context, next: Next) => {
         if (err instanceof Error && err.message === UnAuthorizedError.message) {
             logger.error('#ErrorHandler Client not authenticated')
             ctx.status = 401
-            ctx.body = 'Not Authenticated'
+            ctx.body = {
+                error: {
+                    type: 'Unauthenticated Error',
+                    message: 'Plz Login',
+                },
+            }
         } else {
             if (err instanceof Error) {
                 logger.error(
