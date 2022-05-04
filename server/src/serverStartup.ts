@@ -7,6 +7,7 @@ import bodyParser from 'koa-bodyparser'
 import { DotEnvManager } from './base/envVariableManager/dotEnvManager'
 import { apiLogging } from './api/middleware/shared/api-logging'
 import { errorHandler } from './api/middleware/shared/error_handler'
+import { ParamValidator } from './api/middleware/shared/param-validator/param-validator'
 
 //load dotenv file
 dotenv.config()
@@ -22,6 +23,7 @@ const app = new Koa()
 
 //Middleware
 app.use(errorHandler)
+app.use(ParamValidator.handleParamValidationError)
 app.use(json())
 app.use(bodyParser())
 app.use(apiLogging)

@@ -11,6 +11,11 @@ import {
 } from '../../../service/shared/interfaces/auth/authResult'
 import { handleResult } from '../../../shared/utils/error_handling/result/result_helper'
 import { handleResultError } from '../../utils/handleResultError'
+import { ParamValidator } from '../../middleware/shared/param-validator/param-validator'
+import {
+    registerRequestValidation,
+    signInUserValidation,
+} from '../paramValidators/shared/authRequestValidators'
 
 const handleSetJWTCookie = (jwt: string, ctx: Context) => {
     ctx.cookies.set('authCookie', jwt, {
@@ -19,7 +24,10 @@ const handleSetJWTCookie = (jwt: string, ctx: Context) => {
 }
 
 export const handleRegisterUser = async (ctx: Context) => {
-    const userData: RegisterRequest = ctx.request.body
+    const userData: RegisterRequest = ParamValidator.validateParams(
+        registerRequestValidation,
+        ctx.request.body
+    )
 
     const registerUserResult = await AuthService.registerUser(userData)
 
@@ -40,7 +48,10 @@ export const handleRegisterUser = async (ctx: Context) => {
 }
 
 export const handleSignInUser = async (ctx: Context) => {
-    const userData: SignInRequest = ctx.request.body
+    const userData: SignInRequest = ParamValidator.validateParams(
+        signInUserValidation,
+        ctx.request.body
+    )
     const signInUserResult = await AuthService.signInUser(userData)
 
     const handleSignInUserSuccess = (jwt: string) => {

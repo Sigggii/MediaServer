@@ -1,4 +1,4 @@
-import { createCTXMock } from '../../testData/mocks/api/koaMocks'
+import { createCTXMock } from '../../testUtilities/mocks/api/koaMocks'
 import { UnAuthorizedError } from '../../../src/api/middleware/shared/authMiddleware'
 import { errorHandler } from '../../../src/api/middleware/shared/error_handler'
 

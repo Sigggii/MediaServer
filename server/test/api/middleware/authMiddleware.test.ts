@@ -2,12 +2,12 @@ import {
     createCookiesMock,
     createCTXMock,
     createNextMock,
-} from '../../testData/mocks/api/koaMocks'
+} from '../../testUtilities/mocks/api/koaMocks'
 import { auth } from '../../../src/api/middleware/shared/authMiddleware'
 import {
     createVerifyTokenInValidSpy,
     createVerifyTokenOKSpy,
-} from '../../testData/mocks/service/shared.auth/authManagerMocks'
+} from '../../testUtilities/mocks/service/shared.auth/authManagerMocks'
 
 describe('AuthMiddleware', () => {
     describe('auth', () => {

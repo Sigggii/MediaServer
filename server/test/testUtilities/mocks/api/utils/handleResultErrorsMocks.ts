@@ -1,6 +1,6 @@
 import spyOn = jest.spyOn
 import * as ResultErrorHandler from '../../../../../src/api/utils/handleResultError'
 
-export const createHandleResultError = () => {
+export const createHandleResultErrorSpy = () => {
     return spyOn(ResultErrorHandler, 'handleResultError')
 }

@@ -4,23 +4,23 @@ import {
 } from '../../../../src/shared/utils/error_handling/result/result_helper'
 import { AuthService } from '../../../../src/service/shared/auth/authService'
 
-import { setupDotEnv } from '../../../testData/setup/dotEnvSetup'
+import { setupDotEnv } from '../../../testUtilities/setup/dotEnvSetup'
 import {
     createHashPassword,
     createVerifyPasswordSpy,
-} from '../../../testData/mocks/service/shared.auth/hashManagerMocks'
-import { createGenerateTokenSpy } from '../../../testData/mocks/service/shared.auth/authManagerMocks'
+} from '../../../testUtilities/mocks/service/shared.auth/hashManagerMocks'
+import { createGenerateTokenSpy } from '../../../testUtilities/mocks/service/shared.auth/authManagerMocks'
 import {
     createCreateUserErrorSpy,
     createCreateUserOkSpy,
     createGetUserWithPasswordErrorSpy,
     createGetUserWithPasswordOkSpy,
-} from '../../../testData/mocks/models/shared/mongo/repositories/userRepositoryMocks'
-import { createUserMock } from '../../../testData/mocks/models/shared/mongo/entities/userMocks'
+} from '../../../testUtilities/mocks/models/shared/mongo/repositories/userRepositoryMocks'
+import { createUserMock } from '../../../testUtilities/mocks/models/shared/mongo/entities/userMocks'
 import {
     createDetailedPasswordValidationErrorSpy,
     createDetailedPasswordValidationOkSpy,
-} from '../../../testData/mocks/shared/utils/auth/passwordValidationMocks'
+} from '../../../testUtilities/mocks/shared/utils/auth/passwordValidationMocks'
 import { InvalidPasswordError } from '../../../../src/shared/interfaces/utils/auth/validatePasswordResult'
 
 describe('AuthService Test', () => {
