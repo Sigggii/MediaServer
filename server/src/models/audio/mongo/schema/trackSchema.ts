@@ -12,5 +12,3 @@ export const trackSchema = new Schema<Track>({
     fileLength: { type: Number, required: true },
     filePath: { type: String, required: true },
 })
-
-export const trackModel = model('track', trackSchema)
