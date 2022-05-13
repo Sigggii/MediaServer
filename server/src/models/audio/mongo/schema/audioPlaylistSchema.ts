@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose'
-import { AudioPlaylist } from '../../interfaces/audioPlaylist'
+import { AudioPlaylist } from '../../interfaces/mongo/audioPlaylist'
 import { trackSchema } from './trackSchema'
 
 const audioPlaylistSchema = new Schema<AudioPlaylist>({

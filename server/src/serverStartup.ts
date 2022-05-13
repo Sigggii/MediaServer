@@ -2,15 +2,11 @@ import Koa from 'koa'
 import json from 'koa-json'
 import { mainAllowedMethods, mainRoutes } from './api/routes/mainRouter'
 import mongoose from 'mongoose'
-import dotenv from 'dotenv'
 import bodyParser from 'koa-bodyparser'
 import { DotEnvManager } from './base/envVariableManager/dotEnvManager'
 import { apiLogging } from './api/middleware/shared/api-logging'
 import { errorHandler } from './api/middleware/shared/error_handler'
 import { ParamValidator } from './api/middleware/shared/param-validator/param-validator'
-
-//load dotenv file
-dotenv.config()
 
 //Connect to MongoDB
 const mongoDBConnectString = DotEnvManager.getEnvVariable(

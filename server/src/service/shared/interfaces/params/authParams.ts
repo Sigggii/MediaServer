@@ -1,9 +1,9 @@
-export interface RegisterRequest {
+export interface RegisterParams {
     username: string
     password: string
 }
 
-export interface SignInRequest {
+export interface SignInParams {
     username: string
     password: string
 }

@@ -3,6 +3,10 @@ import {
     EnvVariableManager,
     getEnvVariable,
 } from '../../shared/interfaces/utils/envVariableManager/envVariableManager'
+import dotenv from 'dotenv'
+
+//load dotenv file
+dotenv.config()
 
 const getEnvVariable: getEnvVariable = (envVariable: ENVVariable) => {
     let value: string | undefined = undefined

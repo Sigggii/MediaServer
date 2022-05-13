@@ -1,9 +1,10 @@
 import { ValidateFunction } from 'ajv'
-import { Context, Next } from 'koa'
+import { Next } from 'koa'
 import {
     InvalidParameterError,
     InvalidParameterErrorEntry,
 } from './invalidParameterError'
+import { NormalContext } from '../../../utils/interfaces/customContexts'
 
 const validateParams = <T extends Object>(
     validation: ValidateFunction<T>,
@@ -23,7 +24,7 @@ const validateParams = <T extends Object>(
     }
 }
 
-const handleParamValidationError = async (ctx: Context, next: Next) => {
+const handleParamValidationError = async (ctx: NormalContext, next: Next) => {
     try {
         await next()
     } catch (err) {

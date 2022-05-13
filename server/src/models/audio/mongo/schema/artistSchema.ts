@@ -1,9 +1,10 @@
 import { model, Schema } from 'mongoose'
-import { Artist } from '../../interfaces/artist'
+import { ArtistWithoutID } from '../../interfaces/mongo/artist'
 
-const artistSchema = new Schema<Artist>({
+const artistSchema = new Schema<ArtistWithoutID>({
     name: { type: String, required: true },
-    imagePath: { type: String, required: true },
+    genre: { type: String, required: true },
+    imagePath: { type: String, required: false },
 })
 
-export const artistSchemaModel = model('artist', artistSchema)
+export const ArtistModel = model('artist', artistSchema)

@@ -1,8 +1,8 @@
-import Koa, { Middleware } from 'koa'
+import Koa from 'koa'
 import { logger } from '../../../base/logging/logger'
-import { IMiddleware } from 'koa-router'
+import { NormalContext } from '../../utils/interfaces/customContexts'
 
-export const apiLogging = async (ctx: Koa.Context, next: Koa.Next) => {
+export const apiLogging = async (ctx: NormalContext, next: Koa.Next) => {
     logger.info(ctx.originalUrl)
     await next()
 }

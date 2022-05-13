@@ -1,11 +1,11 @@
-import { createCTXMock } from '../../testUtilities/mocks/api/koaMocks'
+import { createNormalCTXMock } from '../../testUtilities/mocks/api/koaMocks'
 import { UnAuthorizedError } from '../../../src/api/middleware/shared/authMiddleware'
 import { errorHandler } from '../../../src/api/middleware/shared/error_handler'
 
 describe('Error Handler Test', () => {
     describe('errorHandler', () => {
         it('handles UnAuthorizedErrorCorrectly', async () => {
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const nextMock = () => {
                 throw UnAuthorizedError
             }
@@ -22,7 +22,7 @@ describe('Error Handler Test', () => {
         })
 
         it('handles normal Error correctly', async () => {
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const nextMock = () => {
                 throw Error('Alaaarrrmmm!')
             }

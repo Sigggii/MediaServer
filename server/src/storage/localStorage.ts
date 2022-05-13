@@ -1,55 +1,33 @@
-import { writeFile, readFile, existsSync } from 'fs'
+import fs, { existsSync } from 'fs'
 
-import {
-    DoesFileExist,
-    ReadFromStorage,
-    Storage,
-    WriteToStorage,
-} from './interfaces/storage'
+import { ReadFromStorage, Storage, WriteToStorage } from './interfaces/storage'
 import { DotEnvManager } from '../base/envVariableManager/dotEnvManager'
 
 const storagePath = DotEnvManager.getEnvVariable('STORAGE_PATH')
 
+const fsPromises = fs.promises
+
 const getFullPath = (filepath: string) => storagePath + filepath
 
-const createCallbackFunction =
-    (onError: () => void, onSuccess?: () => void) => (err) => {
-        if (err) {
-            return onError()
-        }
-        if (onSuccess) {
-            onSuccess()
-        }
+const writeToStorage: WriteToStorage = async (
+    filepath: string,
+    fileToSave: Buffer
+) => {
+    const fullPath = getFullPath(filepath)
+    const fileNamePositon = fullPath.lastIndexOf('/')
+    if (fileNamePositon !== -1) {
+        const fileDirectoryPath = fullPath.substring(0, fileNamePositon)
+        await fsPromises.mkdir(fileDirectoryPath, { recursive: true })
     }
 
-const writeToStorage: WriteToStorage = (
-    filepath: string,
-    fileToSave: Buffer,
-    onError: () => void,
-    onSuccess?: () => void
-) => {
-    writeFile(
-        getFullPath(filepath),
-        fileToSave,
-        { flag: 'wx' },
-        createCallbackFunction(onError, onSuccess)
-    )
+    await fsPromises.writeFile(fullPath, fileToSave)
 }
 
-const readFromStorage: ReadFromStorage = (
-    filepath: string,
-    onError,
-    onSuccess: () => void
-) => {
-    readFile(getFullPath(filepath), createCallbackFunction(onError, onSuccess))
-}
-
-const doesFileExist: DoesFileExist = (filepath: string) => {
-    return existsSync(getFullPath(filepath))
+const readFromStorage: ReadFromStorage = async (filepath: string) => {
+    return await fsPromises.readFile(getFullPath(filepath))
 }
 
 export const LocalStorage: Storage = {
     writeToStorage,
     readFromStorage,
-    doesFileExist,
 }

@@ -1,12 +1,12 @@
 import { JSONSchemaType } from 'ajv'
 import {
-    RegisterRequest,
-    SignInRequest,
-} from '../../interfaces/requests/authRequests'
+    RegisterParams,
+    SignInParams,
+} from '../../../../service/shared/interfaces/params/authParams'
 
 import { ajv } from '../ajvInstance'
 
-const registerRequestSchema: JSONSchemaType<RegisterRequest> = {
+const registerRequestSchema: JSONSchemaType<RegisterParams> = {
     type: 'object',
     properties: {
         username: { type: 'string' },
@@ -15,7 +15,7 @@ const registerRequestSchema: JSONSchemaType<RegisterRequest> = {
     required: ['username', 'password'],
 }
 
-const signInUserRequestSchema: JSONSchemaType<SignInRequest> = {
+const signInUserRequestSchema: JSONSchemaType<SignInParams> = {
     type: 'object',
     properties: {
         username: { type: 'string' },

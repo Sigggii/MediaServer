@@ -1,10 +1,10 @@
 import { ResultError } from '../../shared/interfaces/utils/error_handling/resultError'
-import { Context } from 'koa'
 import { logger } from '../../base/logging/logger'
+import { NormalContext } from './interfaces/customContexts'
 
 export const handleResultError = (
     err: NonNullable<ResultError>,
-    ctx: Context
+    ctx: NormalContext
 ) => {
     logger.error(
         '#HandleResultError: Error: Sendable: ' +

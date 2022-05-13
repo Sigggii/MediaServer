@@ -4,7 +4,7 @@ import {
     createSignInUserErrorSpy,
     createSignInUserOkSpy,
 } from '../../../testUtilities/mocks/service/shared.auth/authServiceMocks'
-import { createCTXMock } from '../../../testUtilities/mocks/api/koaMocks'
+import { createNormalCTXMock } from '../../../testUtilities/mocks/api/koaMocks'
 import {
     handleRegisterUser,
     handleSignInUser,
@@ -22,7 +22,7 @@ describe('AuthHandler Test', () => {
     describe('handlerRegisterUser', () => {
         test('handles successful registration correctly', async () => {
             createRegisterUserOkSpy('coolJWT')
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const validateParamsSpy = createValidateParamsSpy(ctx.request.body)
             await handleRegisterUser(ctx)
 
@@ -47,7 +47,7 @@ describe('AuthHandler Test', () => {
 
             createRegisterUserErrorSpy(registerUserError)
             const handleErrorSpy = createHandleResultErrorSpy()
-            const ctxMock = createCTXMock()
+            const ctxMock = createNormalCTXMock()
             createValidateParamsSpy(ctxMock.request.body)
             await handleRegisterUser(ctxMock)
 
@@ -61,7 +61,7 @@ describe('AuthHandler Test', () => {
     describe('handleSignInUser', () => {
         test('handles successful SignIn correctly', async () => {
             createSignInUserOkSpy('coolJWT')
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const validateParamsSpy = createValidateParamsSpy(ctx.request.body)
             await handleSignInUser(ctx)
 
@@ -86,7 +86,7 @@ describe('AuthHandler Test', () => {
 
             createSignInUserErrorSpy(error)
             const handleErrorSpy = createHandleResultErrorSpy()
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             createValidateParamsSpy(ctx.request.body)
 
             await handleSignInUser(ctx)

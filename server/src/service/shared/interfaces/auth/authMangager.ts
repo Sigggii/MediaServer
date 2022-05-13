@@ -7,10 +7,17 @@ export type generateToken = (
     expirationTime: number
 ) => Promise<string>
 
-export type VerifyTokenResult = {
-    isValid: boolean
-    authUserInfo?: AuthUserInformation
+type VerifyTokenValid = {
+    isValid: true
+    authUserInfo: AuthUserInformation
 }
+
+type VerifyTokenInvalid = {
+    isValid: false
+    authUserInfo: undefined
+}
+
+export type VerifyTokenResult = VerifyTokenValid | VerifyTokenInvalid
 
 export type verifyToken = (token: string) => Promise<VerifyTokenResult>
 

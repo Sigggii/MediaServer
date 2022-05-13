@@ -7,7 +7,7 @@ import {
     InvalidParameterError,
     InvalidParameterErrorEntry,
 } from '../../../../src/api/middleware/shared/param-validator/invalidParameterError'
-import { createCTXMock } from '../../../testUtilities/mocks/api/koaMocks'
+import { createNormalCTXMock } from '../../../testUtilities/mocks/api/koaMocks'
 import {
     createInvalidParameterError,
     createInvalidParameterErrorEntry,
@@ -45,7 +45,7 @@ describe('ParamValidator Test', () => {
 
     describe('handleParamValidationError', () => {
         it('handles caught InvalidParameterError correctly', async () => {
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const invalidParam = createInvalidParameterErrorEntry(
                 'testParam',
                 'testMessage'
@@ -68,7 +68,7 @@ describe('ParamValidator Test', () => {
         })
 
         it('throws Error again if its not a InvalidParameterError', async () => {
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const next = async () => {
                 throw new Error('This Error should be ignored')
             }

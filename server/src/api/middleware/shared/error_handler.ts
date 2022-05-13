@@ -1,8 +1,10 @@
-import { Context, Next } from 'koa'
+import { Next } from 'koa'
 import { logger } from '../../../base/logging/logger'
 import { UnAuthorizedError } from './authMiddleware'
+import { NormalContext } from '../../utils/interfaces/customContexts'
+import { SendableError } from '../../utils/interfaces/SendableError'
 
-export const errorHandler = async (ctx: Context, next: Next) => {
+export const errorHandler = async (ctx: NormalContext, next: Next) => {
     try {
         await next()
     } catch (err) {
@@ -13,6 +15,21 @@ export const errorHandler = async (ctx: Context, next: Next) => {
                 error: {
                     type: 'Unauthenticated Error',
                     message: 'Plz Login',
+                },
+            }
+        } else if (err instanceof SendableError) {
+            logger.error(
+                '#ErrorHandler Sendable Error: Name: ' +
+                    err.name +
+                    ' , Message: ' +
+                    err.message
+            )
+
+            ctx.status = 400
+            ctx.body = {
+                error: {
+                    type: err.name,
+                    message: err.message,
                 },
             }
         } else {

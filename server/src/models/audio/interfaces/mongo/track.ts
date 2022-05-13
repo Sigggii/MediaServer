@@ -1,8 +1,8 @@
 import { Types } from 'mongoose'
 
-export type Track = {
+export type TrackWithoutID = {
     title: string
-    artist: Types.ObjectId
+    artist: Types.ObjectId | string
     features: [string]
     genre: string
     length: Number
@@ -11,3 +11,5 @@ export type Track = {
     fileLength: Number
     filePath: string
 }
+
+export type Track = { _id: Types.ObjectId | string } & TrackWithoutID

@@ -1,9 +1,8 @@
 import {
-    RegisterRequest,
-    SignInRequest,
-} from '../interfaces/requests/authRequests'
+    RegisterParams,
+    SignInParams,
+} from '../../../service/shared/interfaces/params/authParams'
 import { AuthService } from '../../../service/shared/auth/authService'
-import { Context } from 'koa'
 
 import {
     RegisterUserError,
@@ -16,15 +15,16 @@ import {
     registerRequestValidation,
     signInUserValidation,
 } from '../paramValidators/shared/authRequestValidators'
+import { NormalContext } from '../../utils/interfaces/customContexts'
 
-const handleSetJWTCookie = (jwt: string, ctx: Context) => {
+const handleSetJWTCookie = (jwt: string, ctx: NormalContext) => {
     ctx.cookies.set('authCookie', jwt, {
         httpOnly: true,
     })
 }
 
-export const handleRegisterUser = async (ctx: Context) => {
-    const userData: RegisterRequest = ParamValidator.validateParams(
+export const handleRegisterUser = async (ctx: NormalContext) => {
+    const userData: RegisterParams = ParamValidator.validateParams(
         registerRequestValidation,
         ctx.request.body
     )
@@ -47,8 +47,8 @@ export const handleRegisterUser = async (ctx: Context) => {
     )
 }
 
-export const handleSignInUser = async (ctx: Context) => {
-    const userData: SignInRequest = ParamValidator.validateParams(
+export const handleSignInUser = async (ctx: NormalContext) => {
+    const userData: SignInParams = ParamValidator.validateParams(
         signInUserValidation,
         ctx.request.body
     )

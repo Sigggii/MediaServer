@@ -1,6 +1,6 @@
 import {
     createCookiesMock,
-    createCTXMock,
+    createNormalCTXMock,
     createNextMock,
 } from '../../testUtilities/mocks/api/koaMocks'
 import { auth } from '../../../src/api/middleware/shared/authMiddleware'
@@ -15,7 +15,7 @@ describe('AuthMiddleware', () => {
             createVerifyTokenOKSpy({
                 userID: '1',
             })
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const cookies = createCookiesMock()
             cookies.requestStore.set('authCookie', 'coolJWT')
             ctx.cookies = cookies
@@ -28,14 +28,14 @@ describe('AuthMiddleware', () => {
         })
 
         test('throws UnAuthorizedError if no JWT in Context', async () => {
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const nexSpy = createNextMock()
             await expect(auth(ctx, nexSpy)).rejects.toThrow('Status: 401')
         })
 
         test('throws UnAuthorizedError if JWT not valid', async () => {
             createVerifyTokenInValidSpy()
-            const ctx = createCTXMock()
+            const ctx = createNormalCTXMock()
             const cookies = createCookiesMock()
             cookies.requestStore.set('authCookie', 'coolJWT')
             ctx.cookies = cookies

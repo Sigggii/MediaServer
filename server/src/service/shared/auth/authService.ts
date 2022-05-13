@@ -3,10 +3,7 @@ import { ArgonManager } from './argonManager'
 import { UserRepository } from '../../../models/shared/mongo/repositories/userRespository'
 import { JWTManager } from './jwtManager'
 import { getUnixTimeInHoursFromNow } from '../../../shared/utils/date/dateUtils'
-import {
-    RegisterRequest,
-    SignInRequest,
-} from '../../../api/request-handlers/interfaces/requests/authRequests'
+import { RegisterParams, SignInParams } from '../interfaces/params/authParams'
 import {
     isErr,
     isOK,
@@ -21,7 +18,7 @@ import {
 } from '../interfaces/auth/authResult'
 import { DotEnvManager } from '../../../base/envVariableManager/dotEnvManager'
 
-const registerUser = async (userData: RegisterRequest): RegisterUserResult => {
+const registerUser = async (userData: RegisterParams): RegisterUserResult => {
     const validationResult = PasswordValidation.detailedPasswordValidation(
         userData.password
     )
@@ -49,7 +46,7 @@ const registerUser = async (userData: RegisterRequest): RegisterUserResult => {
     )
 }
 
-const signInUser = async (userData: SignInRequest): SignInUserResult => {
+const signInUser = async (userData: SignInParams): SignInUserResult => {
     const getUserResult = await UserRepository.getUserWithPasswordHash(
         userData.username
     )
