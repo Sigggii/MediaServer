@@ -16,4 +16,4 @@ artistRouter.post(
 )
 
 export const artistRoutes = artistRouter.routes()
-export const artistAllowedMethids = artistRouter.allowedMethods()
+export const artistAllowedMethods = artistRouter.allowedMethods()
