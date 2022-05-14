@@ -35,7 +35,7 @@ const handleCreateArtist = async (ctx: Context) => {
             artistImage: unwrapResult(jpegResult),
         }
 
-        await ArtistService.createArtist(artistData)
+        await ArtistService.createArtist(artistData, ctx.request.userID)
 
         ctx.status = 201
     } else {

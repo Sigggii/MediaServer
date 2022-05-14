@@ -1,6 +1,7 @@
 import { Types } from 'mongoose'
 
 export type IArtistWithoutID = {
+    user: Types.ObjectId | string
     name: string
     genre: string
     imagePath: string
