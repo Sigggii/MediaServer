@@ -1,16 +1,16 @@
-import { AlbumQueries } from '../queries/albumQueries'
-import { AlbumCreateParams } from '../../interfaces/mongo/album'
 import { Types } from 'mongoose'
+import AlbumQueries from '../queries/albumQueries'
+import { IAlbumCreateParams } from '../../interfaces/mongo/album'
 
-const createAlbum = async (album: AlbumCreateParams) => {
-    return AlbumQueries.createAlbum(album)
+const createAlbum = async (album: IAlbumCreateParams) =>
+    AlbumQueries.createAlbum(album)
+
+const addCoverImagePath = async (id: string | Types.ObjectId, path: string) =>
+    AlbumQueries.addAlbumCoverPath(id, path)
+
+const AlbumRepository = {
+    createAlbum,
+    addCoverImagePath,
 }
 
-const addCoverImagePath = async (id: string | Types.ObjectId, path: string) => {
-    return AlbumQueries.addAlbumCoverPath(id, path)
-}
-
-export const AlbumRepository = {
-    createAlbum: createAlbum,
-    addCoverImagePath: addCoverImagePath,
-}
+export default AlbumRepository

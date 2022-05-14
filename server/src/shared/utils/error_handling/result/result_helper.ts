@@ -32,15 +32,11 @@ export const unwrapResult: UnwrapResult = <T, U extends ResultError>({
     )
 }
 
-export const isOK = <T, U extends ResultError>(e: Result<T, U>): e is Ok<T> => {
-    return e.ok !== undefined
-}
+export const isOK = <T, U extends ResultError>(e: Result<T, U>): e is Ok<T> =>
+    e.ok !== undefined
 
-export const isErr = <T, U extends ResultError>(
-    e: Result<T, U>
-): e is Err<U> => {
-    return e.err !== undefined
-}
+export const isErr = <T, U extends ResultError>(e: Result<T, U>): e is Err<U> =>
+    e.err !== undefined
 
 export const makeOk = <T>(value: T): Ok<T> => ({ ok: value })
 

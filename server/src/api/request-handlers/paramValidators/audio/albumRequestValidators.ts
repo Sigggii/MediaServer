@@ -1,15 +1,12 @@
 import { JSONSchemaType } from 'ajv'
-import {
-    CreateAlbumParamRequest,
-    CreateAlbumParamRequestWithoutImage,
-} from '../../../../service/audio/interfaces/params/albumParams'
-import { ajv } from '../ajvInstance'
+import { ICreateAlbumParamRequestWithoutImage } from '../../../../service/audio/interfaces/params/albumParams'
+import ajv from '../ajvInstance'
 import {
     AlbumType,
     AudioType,
 } from '../../../../models/audio/interfaces/mongo/album'
 
-const createAlbumRequestSchema: JSONSchemaType<CreateAlbumParamRequestWithoutImage> =
+const createAlbumRequestSchema: JSONSchemaType<ICreateAlbumParamRequestWithoutImage> =
     {
         type: 'object',
         properties: {
@@ -22,6 +19,6 @@ const createAlbumRequestSchema: JSONSchemaType<CreateAlbumParamRequestWithoutIma
         required: ['title', 'artistID', 'albumType', 'audioType', 'genre'],
     }
 
-export const createAlbumRequestValidation = ajv.compile(
-    createAlbumRequestSchema
-)
+const createAlbumRequestValidation = ajv.compile(createAlbumRequestSchema)
+
+export default createAlbumRequestValidation

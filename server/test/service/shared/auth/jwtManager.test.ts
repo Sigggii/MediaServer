@@ -1,10 +1,11 @@
-import { JWTManager } from '../../../../src/service/shared/auth/jwtManager'
+import crypto from 'crypto'
+import JWTManager from '../../../../src/service/shared/auth/jwtManager'
 
 describe('JWT-Manager tests', () => {
     const realENV = process.env
 
     beforeEach(() => {
-        jest.resetModules() //clear cache
+        jest.resetModules() // clear cache
         process.env = { ...realENV }
     })
 
@@ -13,11 +14,9 @@ describe('JWT-Manager tests', () => {
     })
 
     test('will receive valid jwt', async () => {
-        process.env.JWTSECRET = require('crypto')
-            .randomBytes(64)
-            .toString('hex')
+        process.env.JWTSECRET = crypto.randomBytes(64).toString('hex')
 
-        //aktuelle Zeit + 2 Stunden in Sekunden
+        // aktuelle Zeit + 2 Stunden in Sekunden
         const expiryDate =
             new Date(Date.now() + 2 * 60 * 60 * 1000).getTime() / 1000
 
@@ -29,12 +28,12 @@ describe('JWT-Manager tests', () => {
     })
 
     test('will reject expired jwt', async () => {
-        process.env.JWTSECRET = require('crypto')
-            .randomBytes(64)
-            .toString('hex')
+        process.env.JWTSECRET = crypto.randomBytes(64).toString('hex')
 
-        const currentDate = Date.now() / 1000 - 10 //In Sekunden
+        const currentDate = Date.now() / 1000 - 10 // In Sekunden
         const jwt = await JWTManager.generateToken({ userID: '1' }, currentDate)
-        const payload = await JWTManager.verifyToken(jwt)
+        const verifyResult = await JWTManager.verifyToken(jwt)
+
+        expect(verifyResult.isValid).toBeFalsy()
     })
 })

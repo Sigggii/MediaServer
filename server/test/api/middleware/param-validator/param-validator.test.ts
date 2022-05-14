@@ -1,12 +1,9 @@
-import { ParamValidator } from '../../../../src/api/middleware/shared/param-validator/param-validator'
+import ParamValidator from '../../../../src/api/middleware/shared/param-validator/param-validator'
 import {
     ParamValidatorTestObject,
     paramValidatorTestValidation,
 } from '../../../testUtilities/testData/api/shared/middleware/param-validator/param-validatorTestData'
-import {
-    InvalidParameterError,
-    InvalidParameterErrorEntry,
-} from '../../../../src/api/middleware/shared/param-validator/invalidParameterError'
+import { InvalidParameterError } from '../../../../src/api/middleware/shared/param-validator/invalidParameterError'
 import { createNormalCTXMock } from '../../../testUtilities/mocks/api/koaMocks'
 import {
     createInvalidParameterError,

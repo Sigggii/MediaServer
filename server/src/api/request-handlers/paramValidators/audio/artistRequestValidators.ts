@@ -1,8 +1,8 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateArtistParamRequestWithoutImage } from '../../../../service/audio/interfaces/params/artistParams'
-import { ajv } from '../ajvInstance'
+import { ICreateArtistParamRequestWithoutImage } from '../../../../service/audio/interfaces/params/artistParams'
+import ajv from '../ajvInstance'
 
-const createArtistRequestSchema: JSONSchemaType<CreateArtistParamRequestWithoutImage> =
+const createArtistRequestSchema: JSONSchemaType<ICreateArtistParamRequestWithoutImage> =
     {
         type: 'object',
         properties: {
@@ -12,6 +12,6 @@ const createArtistRequestSchema: JSONSchemaType<CreateArtistParamRequestWithoutI
         required: ['name', 'genre'],
     }
 
-export const createArtistRequestValidation = ajv.compile(
-    createArtistRequestSchema
-)
+const createArtistRequestValidation = ajv.compile(createArtistRequestSchema)
+
+export default createArtistRequestValidation

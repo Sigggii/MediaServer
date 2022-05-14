@@ -2,9 +2,9 @@ import {
     isErr,
     isOK,
 } from '../../../../src/shared/utils/error_handling/result/result_helper'
-import { AuthService } from '../../../../src/service/shared/auth/authService'
+import AuthService from '../../../../src/service/shared/auth/authService'
 
-import { setupDotEnv } from '../../../testUtilities/setup/dotEnvSetup'
+import setupDotEnv from '../../../testUtilities/setup/dotEnvSetup'
 import {
     createHashPassword,
     createVerifyPasswordSpy,
@@ -16,7 +16,7 @@ import {
     createGetUserWithPasswordErrorSpy,
     createGetUserWithPasswordOkSpy,
 } from '../../../testUtilities/mocks/models/shared/mongo/repositories/userRepositoryMocks'
-import { createUserMock } from '../../../testUtilities/mocks/models/shared/mongo/entities/userMocks'
+import createUserMock from '../../../testUtilities/mocks/models/shared/mongo/entities/userMocks'
 import {
     createDetailedPasswordValidationErrorSpy,
     createDetailedPasswordValidationOkSpy,

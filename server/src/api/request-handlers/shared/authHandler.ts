@@ -2,15 +2,15 @@ import {
     RegisterParams,
     SignInParams,
 } from '../../../service/shared/interfaces/params/authParams'
-import { AuthService } from '../../../service/shared/auth/authService'
+import AuthService from '../../../service/shared/auth/authService'
 
 import {
     RegisterUserError,
     SignInUserError,
 } from '../../../service/shared/interfaces/auth/authResult'
 import { handleResult } from '../../../shared/utils/error_handling/result/result_helper'
-import { handleResultError } from '../../utils/handleResultError'
-import { ParamValidator } from '../../middleware/shared/param-validator/param-validator'
+import handleResultError from '../../utils/handleResultError'
+import ParamValidator from '../../middleware/shared/param-validator/param-validator'
 import {
     registerRequestValidation,
     signInUserValidation,

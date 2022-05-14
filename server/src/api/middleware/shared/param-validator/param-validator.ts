@@ -6,22 +6,21 @@ import {
 } from './invalidParameterError'
 import { NormalContext } from '../../../utils/interfaces/customContexts'
 
-const validateParams = <T extends Object>(
+const validateParams = <T>(
     validation: ValidateFunction<T>,
-    data: Object
+    data: unknown
 ): T => {
     if (validation(data)) return <T>data
-    else {
-        const errors = validation.errors
-        const errorEntries: InvalidParameterErrorEntry[] = []
-        errors?.forEach((err) =>
-            errorEntries.push({
-                param: err.instancePath.replace('/', ''),
-                message: err.message,
-            })
-        )
-        throw new InvalidParameterError(errorEntries)
-    }
+
+    const { errors } = validation
+    const errorEntries: InvalidParameterErrorEntry[] = []
+    errors?.forEach((err) =>
+        errorEntries.push({
+            param: err.instancePath.replace('/', ''),
+            message: err.message,
+        })
+    )
+    throw new InvalidParameterError(errorEntries)
 }
 
 const handleParamValidationError = async (ctx: NormalContext, next: Next) => {
@@ -39,7 +38,9 @@ const handleParamValidationError = async (ctx: NormalContext, next: Next) => {
     }
 }
 
-export const ParamValidator = {
-    validateParams: validateParams,
-    handleParamValidationError: handleParamValidationError,
+const ParamValidator = {
+    validateParams,
+    handleParamValidationError,
 }
+
+export default ParamValidator

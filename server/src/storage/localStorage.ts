@@ -1,7 +1,7 @@
-import fs, { existsSync } from 'fs'
+import fs from 'fs'
 
 import { ReadFromStorage, Storage, WriteToStorage } from './interfaces/storage'
-import { DotEnvManager } from '../base/envVariableManager/dotEnvManager'
+import DotEnvManager from '../base/envVariableManager/dotEnvManager'
 
 const storagePath = DotEnvManager.getEnvVariable('STORAGE_PATH')
 
@@ -23,11 +23,12 @@ const writeToStorage: WriteToStorage = async (
     await fsPromises.writeFile(fullPath, fileToSave)
 }
 
-const readFromStorage: ReadFromStorage = async (filepath: string) => {
-    return await fsPromises.readFile(getFullPath(filepath))
-}
+const readFromStorage: ReadFromStorage = async (filepath: string) =>
+    fsPromises.readFile(getFullPath(filepath))
 
-export const LocalStorage: Storage = {
+const LocalStorage: Storage = {
     writeToStorage,
     readFromStorage,
 }
+
+export default LocalStorage

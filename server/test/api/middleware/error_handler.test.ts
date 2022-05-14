@@ -1,6 +1,6 @@
 import { createNormalCTXMock } from '../../testUtilities/mocks/api/koaMocks'
 import { UnAuthorizedError } from '../../../src/api/middleware/shared/authMiddleware'
-import { errorHandler } from '../../../src/api/middleware/shared/error_handler'
+import errorHandler from '../../../src/api/middleware/shared/error_handler'
 
 describe('Error Handler Test', () => {
     describe('errorHandler', () => {

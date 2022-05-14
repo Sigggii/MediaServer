@@ -1,5 +1,4 @@
 import Router from 'koa-router'
-import { authAllowedMethods, authRoutes } from './shared/auth/authRouter'
 import { notSecuredAllowedMethods, notSecuredRoutes } from './notSecuredRouter'
 import { securedAllowedMethods, securedRoutes } from './securedRouter'
 

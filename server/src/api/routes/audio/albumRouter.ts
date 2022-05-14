@@ -1,6 +1,6 @@
 import Router from 'koa-router'
-import { handleCreateAlbum } from '../../request-handlers/audio/albumHandler'
-import { upload } from '../../middleware/shared/multer'
+import handleCreateAlbum from '../../request-handlers/audio/albumHandler'
+import upload from '../../middleware/shared/multer'
 
 const albumRouter = new Router({ prefix: '/album' })
 

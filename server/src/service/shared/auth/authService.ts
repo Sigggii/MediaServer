@@ -1,8 +1,8 @@
-import { PasswordValidation } from '../../../shared/utils/auth/passwordValidation'
-import { ArgonManager } from './argonManager'
-import { UserRepository } from '../../../models/shared/mongo/repositories/userRespository'
-import { JWTManager } from './jwtManager'
-import { getUnixTimeInHoursFromNow } from '../../../shared/utils/date/dateUtils'
+import PasswordValidation from '../../../shared/utils/auth/passwordValidation'
+import ArgonManager from './argonManager'
+import UserRepository from '../../../models/shared/mongo/repositories/userRespository'
+import JWTManager from './jwtManager'
+import getUnixTimeInHoursFromNow from '../../../shared/utils/date/dateUtils'
 import { RegisterParams, SignInParams } from '../interfaces/params/authParams'
 import {
     isErr,
@@ -16,7 +16,7 @@ import {
     SignInUserError,
     SignInUserResult,
 } from '../interfaces/auth/authResult'
-import { DotEnvManager } from '../../../base/envVariableManager/dotEnvManager'
+import DotEnvManager from '../../../base/envVariableManager/dotEnvManager'
 
 const registerUser = async (userData: RegisterParams): RegisterUserResult => {
     const validationResult = PasswordValidation.detailedPasswordValidation(
@@ -28,7 +28,7 @@ const registerUser = async (userData: RegisterParams): RegisterUserResult => {
 
     const createUserResult = await UserRepository.createUser({
         username: userData.username,
-        passwordHash: passwordHash,
+        passwordHash,
     })
 
     if (isErr(createUserResult)) return createUserResult
@@ -39,7 +39,10 @@ const registerUser = async (userData: RegisterParams): RegisterUserResult => {
             { userID: user._id.toString() },
             getUnixTimeInHoursFromNow(
                 parseInt(
-                    DotEnvManager.getEnvVariable('JWT_EXPIRATION_TIME_IN_HOURS')
+                    DotEnvManager.getEnvVariable(
+                        'JWT_EXPIRATION_TIME_IN_HOURS'
+                    ),
+                    10
                 )
             )
         )
@@ -65,7 +68,8 @@ const signInUser = async (userData: SignInParams): SignInUserResult => {
                         parseInt(
                             DotEnvManager.getEnvVariable(
                                 'JWT_EXPIRATION_TIME_IN_HOURS'
-                            )
+                            ),
+                            10
                         )
                     )
                 )
@@ -79,7 +83,9 @@ const signInUser = async (userData: SignInParams): SignInUserResult => {
     })
 }
 
-export const AuthService = {
-    registerUser: registerUser,
-    signInUser: signInUser,
+const AuthService = {
+    registerUser,
+    signInUser,
 }
+
+export default AuthService

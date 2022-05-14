@@ -1,10 +1,15 @@
-import {
-    JPEGError,
-    JPEGResult,
-} from '../../../interfaces/utils/file_types/images/JPEGResult'
 import { makeErr, makeOk } from '../../error_handling/result/result_helper'
+import { Result } from '../../../interfaces/utils/error_handling/result'
 
-export class JPEG {
+type JPEGError = {
+    sendable: true
+    type: 'JPEG Error'
+    message: 'File is no JPEG-Format'
+}
+
+type JPEGResult = Result<JPEG, JPEGError>
+
+class JPEG {
     private readonly data: Buffer
 
     get getData(): Buffer {
@@ -26,3 +31,5 @@ export class JPEG {
         return makeOk(new JPEG(data))
     }
 }
+
+export default JPEG

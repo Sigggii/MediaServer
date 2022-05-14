@@ -1,10 +1,10 @@
 import { Next } from 'koa'
-import { logger } from '../../../base/logging/logger'
+import logger from '../../../base/logging/logger'
 import { UnAuthorizedError } from './authMiddleware'
 import { NormalContext } from '../../utils/interfaces/customContexts'
-import { SendableError } from '../../utils/interfaces/SendableError'
+import SendableError from '../../utils/interfaces/SendableError'
 
-export const errorHandler = async (ctx: NormalContext, next: Next) => {
+const errorHandler = async (ctx: NormalContext, next: Next) => {
     try {
         await next()
     } catch (err) {
@@ -19,10 +19,7 @@ export const errorHandler = async (ctx: NormalContext, next: Next) => {
             }
         } else if (err instanceof SendableError) {
             logger.error(
-                '#ErrorHandler Sendable Error: Name: ' +
-                    err.name +
-                    ' , Message: ' +
-                    err.message
+                `#ErrorHandler Sendable Error: Name: ${err.name} , Message: ${err.message}`
             )
 
             ctx.status = 400
@@ -35,14 +32,11 @@ export const errorHandler = async (ctx: NormalContext, next: Next) => {
         } else {
             if (err instanceof Error) {
                 logger.error(
-                    '#ErrorHandler Unexpected Error: ' +
-                        err +
-                        '\n' +
-                        ' Stacktrace: ' +
-                        err.stack
+                    `#ErrorHandler Unexpected Error: ${err}\n` +
+                        ` Stacktrace: ${err.stack}`
                 )
             } else {
-                logger.error('#ErrorHandler Unexpected Error: ' + err)
+                logger.error(`#ErrorHandler Unexpected Error: ${err}`)
             }
             ctx.status = 500
             ctx.body = {
@@ -54,3 +48,5 @@ export const errorHandler = async (ctx: NormalContext, next: Next) => {
         }
     }
 }
+
+export default errorHandler

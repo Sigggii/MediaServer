@@ -23,4 +23,6 @@ const logConfiguration: LoggerOptions = {
     ],
 }
 
-export const logger = winston.createLogger(logConfiguration)
+const logger = winston.createLogger(logConfiguration)
+
+export default logger

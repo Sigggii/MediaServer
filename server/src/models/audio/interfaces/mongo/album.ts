@@ -1,21 +1,20 @@
 import { Types } from 'mongoose'
-import { Track } from './track'
-import { MakeFieldPartial } from '../../../../shared/utils/advanced_types/makeFieldPartial'
+import { ITrack } from './tracks'
 
-export type AlbumWithoutID = {
+export type IAlbumWithoutID = {
     userID: Types.ObjectId | string
     title: string
     artistID: Types.ObjectId | string
     genre: string
     albumType: AlbumType
     audioType: AudioType
-    tracks: Track
+    tracks: ITrack
     coverPath: string
 }
 
-export type Album = { _id: Types.ObjectId | string } & AlbumWithoutID
+export type IAlbum = { _id: Types.ObjectId | string } & IAlbumWithoutID
 
-export type AlbumCreateParams = Omit<AlbumWithoutID, 'tracks' | 'coverPath'>
+export type IAlbumCreateParams = Omit<IAlbumWithoutID, 'tracks' | 'coverPath'>
 
 export enum AlbumType {
     ALBUM = 'album',

@@ -5,16 +5,12 @@ import {
 
 export const createInvalidParameterError = (
     invalidParams: InvalidParameterErrorEntry[]
-) => {
-    return new InvalidParameterError(invalidParams)
-}
+) => new InvalidParameterError(invalidParams)
 
 export const createInvalidParameterErrorEntry = (
     param: string,
     message?: string
-): InvalidParameterErrorEntry => {
-    return {
-        param: param,
-        message: message,
-    }
-}
+): InvalidParameterErrorEntry => ({
+    param,
+    message,
+})

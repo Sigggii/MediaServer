@@ -1,7 +1,7 @@
-import { TrackWithoutID } from '../../interfaces/mongo/track'
-import { Schema, model } from 'mongoose'
+import { Schema } from 'mongoose'
+import { ITrackWithoutID } from '../../interfaces/mongo/tracks'
 
-export const trackSchema = new Schema<TrackWithoutID>({
+const trackSchema = new Schema<ITrackWithoutID>({
     title: { type: String, required: true },
     artist: { type: Schema.Types.ObjectId, required: true },
     features: { type: [String], required: true },
@@ -12,3 +12,5 @@ export const trackSchema = new Schema<TrackWithoutID>({
     fileLength: { type: Number, required: true },
     filePath: { type: String, required: true },
 })
+
+export default trackSchema

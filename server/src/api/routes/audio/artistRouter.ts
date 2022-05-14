@@ -1,6 +1,6 @@
 import Router from 'koa-router'
-import { upload } from '../../middleware/shared/multer'
-import { handleCreateArtist } from '../../request-handlers/audio/artistHandler'
+import upload from '../../middleware/shared/multer'
+import handleCreateArtist from '../../request-handlers/audio/artistHandler'
 
 const artistRouter = new Router({ prefix: '/artist' })
 

@@ -3,7 +3,7 @@ export type HashPassword = (password: string) => Promise<string>
 export type VerifyPassword = (
     hash: string,
     password: string
-) => Promise<Boolean>
+) => Promise<boolean>
 
 export type HashManager = {
     hashPassword: HashPassword

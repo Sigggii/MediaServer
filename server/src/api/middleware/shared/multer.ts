@@ -1,4 +1,5 @@
 import koaMulter from '@koa/multer'
 
 const memoryStorage = koaMulter.memoryStorage()
-export const upload = koaMulter({ storage: memoryStorage })
+const upload = koaMulter({ storage: memoryStorage })
+export default upload

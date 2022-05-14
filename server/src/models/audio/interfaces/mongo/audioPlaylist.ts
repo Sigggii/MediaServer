@@ -1,11 +1,11 @@
 import { Types } from 'mongoose'
-import { TrackWithoutID } from './track'
+import { ITrackWithoutID } from './tracks'
 
-export type AudioPlaylist = {
+export type IAudioPlaylist = {
     userID: Types.ObjectId
     name: string
     description: string
     createdAt: Date
-    tracks: [TrackWithoutID]
+    tracks: [ITrackWithoutID]
     imagePath: string
 }

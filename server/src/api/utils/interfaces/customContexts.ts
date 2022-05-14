@@ -1,4 +1,3 @@
-import { Context, ParameterizedContext } from 'koa'
-import Router from 'koa-router'
+import { ExtendableContext } from 'koa'
 
-export type NormalContext = ParameterizedContext<any, any, any>
+export type NormalContext = ExtendableContext

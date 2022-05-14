@@ -1,8 +1,8 @@
 import { Result } from '../../../../shared/interfaces/utils/error_handling/result'
 import { ValidatePasswordError } from '../../../../shared/interfaces/utils/auth/validatePasswordResult'
-import { CreateUserError } from '../../../../models/shared/interfaces/userResults/userResults'
+import { ICreateUserError } from '../../../../models/shared/interfaces/userResults/userResults'
 
-export type RegisterUserError = ValidatePasswordError | CreateUserError
+export type RegisterUserError = ValidatePasswordError | ICreateUserError
 
 export type RegisterUserResult = Promise<Result<string, RegisterUserError>>
 

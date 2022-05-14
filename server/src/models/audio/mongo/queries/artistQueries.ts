@@ -1,15 +1,10 @@
-import {
-    ArtistWithoutID,
-    CreateArtistParams,
-} from '../../interfaces/mongo/artist'
-import { ArtistModel } from '../schema/artistSchema'
-import { Types } from 'mongoose'
-import { add } from 'winston'
+import { ICreateArtistParams } from '../../interfaces/mongo/artist'
+import ArtistModel from '../schema/artistSchema'
+
 import { ID } from '../../../interfaces'
 
-const createArtist = async (artist: CreateArtistParams) => {
-    return new ArtistModel(artist).save()
-}
+const createArtist = async (artist: ICreateArtistParams) =>
+    new ArtistModel(artist).save()
 
 const addImagePath = async (artistID: ID, imagePath: string) => {
     const artist = await ArtistModel.findById(artistID)
@@ -19,7 +14,9 @@ const addImagePath = async (artistID: ID, imagePath: string) => {
     }
 }
 
-export const ArtistQueries = {
-    createArtist: createArtist,
-    addImagePath: addImagePath,
+const ArtistQueries = {
+    createArtist,
+    addImagePath,
 }
+
+export default ArtistQueries

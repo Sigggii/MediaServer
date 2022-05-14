@@ -1,6 +1,8 @@
-export class SendableError extends Error {
+class SendableError extends Error {
     constructor(name: string, message: string) {
         super(message)
         this.name = name
     }
 }
+
+export default SendableError

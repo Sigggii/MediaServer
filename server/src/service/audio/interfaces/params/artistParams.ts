@@ -1,8 +1,8 @@
-import { CreateArtistParams } from '../../../../models/audio/interfaces/mongo/artist'
-import { JPEG } from '../../../../shared/utils/file_types/images/JPEG'
+import { ICreateArtistParams } from '../../../../models/audio/interfaces/mongo/artist'
+import JPEG from '../../../../shared/utils/file_types/images/JPEG'
 
-export type CreateArtistParamRequestWithoutImage = CreateArtistParams
+export type ICreateArtistParamRequestWithoutImage = ICreateArtistParams
 
-export type CreateArtistParamsRequest = {
-    artist: CreateArtistParamRequestWithoutImage
+export type ICreateArtistParamsRequest = {
+    artist: ICreateArtistParamRequestWithoutImage
 } & { artistImage: JPEG }

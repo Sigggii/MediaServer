@@ -9,10 +9,10 @@ import {
     handleRegisterUser,
     handleSignInUser,
 } from '../../../../src/api/request-handlers/shared/authHandler'
-import { createHandleResultErrorSpy } from '../../../testUtilities/mocks/api/utils/handleResultErrorsMocks'
-import { CreateUserError } from '../../../../src/models/shared/interfaces/userResults/userResults'
+import createHandleResultErrorSpy from '../../../testUtilities/mocks/api/utils/handleResultErrorsMocks'
+import { ICreateUserError } from '../../../../src/models/shared/interfaces/userResults/userResults'
 import { SignInUserError } from '../../../../src/service/shared/interfaces/auth/authResult'
-import { createValidateParamsSpy } from '../../../testUtilities/mocks/api/middlerware/shared/param-validatorMocks'
+import createValidateParamsSpy from '../../../testUtilities/mocks/api/middlerware/shared/param-validatorMocks'
 import {
     registerRequestValidation,
     signInUserValidation,
@@ -39,7 +39,7 @@ describe('AuthHandler Test', () => {
         })
 
         test('handles Error on failed UserRegistration', async () => {
-            const registerUserError: CreateUserError = {
+            const registerUserError: ICreateUserError = {
                 sendable: true,
                 type: 'Create User',
                 message: 'User with that Username already exists',

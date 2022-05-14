@@ -4,7 +4,7 @@ import {
     SignInParams,
 } from '../../../../service/shared/interfaces/params/authParams'
 
-import { ajv } from '../ajvInstance'
+import ajv from '../ajvInstance'
 
 const registerRequestSchema: JSONSchemaType<RegisterParams> = {
     type: 'object',

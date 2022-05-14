@@ -1,4 +1,4 @@
-import { PasswordValidation } from '../../../src/shared/utils/auth/passwordValidation'
+import PasswordValidation from '../../../src/shared/utils/auth/passwordValidation'
 import { unwrapResult } from '../../../src/shared/utils/error_handling/result/result_helper'
 
 test('min password length = 10', () => {

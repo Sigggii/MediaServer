@@ -1,15 +1,10 @@
-import { CreateAlbumParamRequest } from './interfaces/params/albumParams'
-import { AlbumRepository } from '../../models/audio/mongo/repositories/albumRepository'
-import { JWTManager } from '../shared/auth/jwtManager'
-import { UnAuthorizedError } from '../../api/middleware/shared/authMiddleware'
-import { AudioStorage } from '../../storage/audio/audioStorage'
+import { ICreateAlbumParamRequest } from './interfaces/params/albumParams'
+import AlbumRepository from '../../models/audio/mongo/repositories/albumRepository'
+import AudioStorage from '../../storage/audio/audioStorage'
 
-const createAlbum = async (album: CreateAlbumParamRequest, idToken: string) => {
-    const tokenResult = await JWTManager.verifyToken(idToken)
-    if (!tokenResult.isValid) throw UnAuthorizedError
-
+const createAlbum = async (album: ICreateAlbumParamRequest, userID: string) => {
     const { _id, title } = await AlbumRepository.createAlbum({
-        userID: tokenResult.authUserInfo.userID,
+        userID,
         ...album.album,
     })
 
@@ -21,6 +16,8 @@ const createAlbum = async (album: CreateAlbumParamRequest, idToken: string) => {
     await AlbumRepository.addCoverImagePath(_id, path)
 }
 
-export const AlbumService = {
-    createAlbum: createAlbum,
+const AlbumService = {
+    createAlbum,
 }
+
+export default AlbumService

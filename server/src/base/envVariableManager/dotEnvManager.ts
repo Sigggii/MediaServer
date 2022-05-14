@@ -1,15 +1,15 @@
-import {
-    ENVVariable,
-    EnvVariableManager,
-    getEnvVariable,
-} from '../../shared/interfaces/utils/envVariableManager/envVariableManager'
 import dotenv from 'dotenv'
+import {
+    IENVVariable,
+    IEnvVariableManager,
+    IGetEnvVariable,
+} from '../../shared/interfaces/utils/envVariableManager/IEnvVariableManager'
 
-//load dotenv file
+// load dotenv file
 dotenv.config()
 
-const getEnvVariable: getEnvVariable = (envVariable: ENVVariable) => {
-    let value: string | undefined = undefined
+const getEnvVariable: IGetEnvVariable = (envVariable: IENVVariable) => {
+    let value: string | undefined
 
     switch (envVariable) {
         case 'JWTSECRET':
@@ -25,6 +25,8 @@ const getEnvVariable: getEnvVariable = (envVariable: ENVVariable) => {
         case 'JWT_EXPIRATION_TIME_IN_HOURS':
             value = process.env.JWT_EXPIRATION_TIME_IN_HOURS
             break
+        default:
+            throw new Error('Env Variable not defined')
     }
 
     if (value === undefined) throw new Error('Environment Variable undefined')
@@ -32,6 +34,8 @@ const getEnvVariable: getEnvVariable = (envVariable: ENVVariable) => {
     return value
 }
 
-export const DotEnvManager: EnvVariableManager = {
-    getEnvVariable: getEnvVariable,
+const DotEnvManager: IEnvVariableManager = {
+    getEnvVariable,
 }
+
+export default DotEnvManager

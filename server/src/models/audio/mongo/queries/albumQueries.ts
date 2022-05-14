@@ -1,10 +1,10 @@
-import { Album, AlbumCreateParams } from '../../interfaces/mongo/album'
-import { AlbumModel } from '../schema/albumSchema'
 import { Types } from 'mongoose'
+import { IAlbum, IAlbumCreateParams } from '../../interfaces/mongo/album'
+import AlbumModel from '../schema/albumSchema'
 
-const createAlbum = async (album: AlbumCreateParams): Promise<Album> => {
+const createAlbum = async (album: IAlbumCreateParams): Promise<IAlbum> => {
     const albumModel = new AlbumModel(album)
-    return await albumModel.save()
+    return albumModel.save()
 }
 
 const addAlbumCoverPath = async (id: string | Types.ObjectId, path: string) => {
@@ -15,7 +15,9 @@ const addAlbumCoverPath = async (id: string | Types.ObjectId, path: string) => {
     }
 }
 
-export const AlbumQueries = {
-    createAlbum: createAlbum,
-    addAlbumCoverPath: addAlbumCoverPath,
+const AlbumQueries = {
+    createAlbum,
+    addAlbumCoverPath,
 }
+
+export default AlbumQueries

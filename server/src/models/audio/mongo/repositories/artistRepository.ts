@@ -1,16 +1,17 @@
-import { CreateArtistParams } from '../../interfaces/mongo/artist'
-import { ArtistQueries } from '../queries/artistQueries'
+import { ICreateArtistParams } from '../../interfaces/mongo/artist'
+import ArtistQueries from '../queries/artistQueries'
 import { ID } from '../../../interfaces'
 
-const createArtist = async (artist: CreateArtistParams) => {
-    return await ArtistQueries.createArtist(artist)
-}
+const createArtist = async (artist: ICreateArtistParams) =>
+    ArtistQueries.createArtist(artist)
 
 const addImagePath = async (id: ID, imagePath: string) => {
     await ArtistQueries.addImagePath(id, imagePath)
 }
 
-export const ArtistRepository = {
-    createArtist: createArtist,
-    addImagePath: addImagePath,
+const ArtistRepository = {
+    createArtist,
+    addImagePath,
 }
+
+export default ArtistRepository

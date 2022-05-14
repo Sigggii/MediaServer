@@ -1,11 +1,11 @@
 import { Types } from 'mongoose'
 
-export type ArtistWithoutID = {
+export type IArtistWithoutID = {
     name: string
     genre: string
     imagePath: string
 }
 
-export type Artist = { _id: Types.ObjectId | string } & ArtistWithoutID
+export type IArtist = { _id: Types.ObjectId | string } & IArtistWithoutID
 
-export type CreateArtistParams = Omit<ArtistWithoutID, 'imagePath'>
+export type ICreateArtistParams = Omit<IArtistWithoutID, 'imagePath'>

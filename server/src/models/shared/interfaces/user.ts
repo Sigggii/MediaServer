@@ -1,12 +1,12 @@
 import { Types } from 'mongoose'
 
-//User for creating the UserSchema in MongoDB and creating a new User in DB
-export type UserWithoutID = {
+// User for creating the UserSchema in MongoDB and creating a new User in DB
+export type IUserWithoutID = {
     username: string
     passwordHash: string
     registeredAt: Date
 }
 
-export type User = { _id: Types.ObjectId } & UserWithoutID
+export type IUser = { _id: Types.ObjectId | string } & IUserWithoutID
 
-export type UserWithoutPassword = Omit<User, 'passwordHash'>
+export type IUserWithoutPassword = Omit<IUser, 'passwordHash'>
