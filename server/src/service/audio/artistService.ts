@@ -6,14 +6,14 @@ const createArtist = async (
     artist: ICreateArtistParamsRequest,
     userID: string
 ) => {
-    const { _id, name } = await ArtistRepository.createArtist({
+    const { _id } = await ArtistRepository.createArtist({
         user: userID,
         ...artist.artist,
     })
 
     const path = await AudioStorage.storeArtistImage(
+        userID,
         _id.toString(),
-        name,
         artist.artistImage
     )
 

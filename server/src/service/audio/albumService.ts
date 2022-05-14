@@ -3,12 +3,14 @@ import AlbumRepository from '../../models/audio/mongo/repositories/albumReposito
 import AudioStorage from '../../storage/audio/audioStorage'
 
 const createAlbum = async (album: ICreateAlbumParamRequest, userID: string) => {
-    const { _id, title } = await AlbumRepository.createAlbum({
+    const { _id, title, artistID } = await AlbumRepository.createAlbum({
         userID,
         ...album.album,
     })
 
     const path = await AudioStorage.storeAlbumCover(
+        userID,
+        artistID.toString(),
         _id.toString(),
         title,
         album.coverImage
