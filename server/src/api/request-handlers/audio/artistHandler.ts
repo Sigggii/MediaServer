@@ -6,7 +6,7 @@ import {
 import ParamValidator from '../../middleware/shared/param-validator/param-validator'
 import createArtistRequestValidation from '../paramValidators/audio/artistRequestValidators'
 import JPEG from '../../../shared/utils/file_types/images/JPEG'
-import validateFile from '../paramValidators/FileValidators'
+import validateFile from '../paramValidators/shared/FileValidators'
 import {
     isOK,
     unwrapResult,
@@ -21,13 +21,13 @@ const handleCreateArtist = async (ctx: Context) => {
             JSON.parse(ctx.request.body.artist)
         )
 
-    const jpegResult = JPEG.create(
-        validateFile(
-            ctx.files && 'artistImage' in ctx.files
-                ? ctx.files.artistImage
-                : undefined
-        )
+    const { buffer } = validateFile(
+        ctx.files && 'artistImage' in ctx.files
+            ? ctx.files.artistImage
+            : undefined
     )
+
+    const jpegResult = JPEG.create(buffer)
 
     if (isOK(jpegResult)) {
         const artistData: ICreateArtistParamsRequest = {
@@ -35,9 +35,13 @@ const handleCreateArtist = async (ctx: Context) => {
             artistImage: unwrapResult(jpegResult),
         }
 
-        await ArtistService.createArtist(artistData, ctx.request.userID)
+        const createdArtist = await ArtistService.createArtist(
+            artistData,
+            ctx.request.userID
+        )
 
         ctx.status = 201
+        ctx.body = createdArtist
     } else {
         handleResultError(unwrapResult(jpegResult), ctx)
     }

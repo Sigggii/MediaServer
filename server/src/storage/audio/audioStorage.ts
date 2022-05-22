@@ -1,35 +1,44 @@
 import LocalStorage from '../localStorage'
 import logger from '../../base/logging/logger'
 import JPEG from '../../shared/utils/file_types/images/JPEG'
-
-const createAudioPath = (userID: string) => `${userID}/audio/`
-const createArtistPath = (userID: string, artistID: string) =>
-    `${createAudioPath(userID) + artistID}/`
-const createAlbumPath = (
-    userID: string,
-    artistID: string,
-    albumID: string,
-    albumName: string
-) => `${createArtistPath(userID, artistID)} ${albumID}_${albumName}/`
+import FLAC from '../../shared/utils/file_types/audio/FLAC'
+import {
+    createAlbumCoverPath,
+    createArtistImagePath,
+    createTrackPath,
+} from '../storagePathCreators'
 
 const storeAlbumCover = async (
     userID: string,
     artistID: string,
     albumID: string,
-    albumName: string,
     jpeg: JPEG
 ) => {
-    const coverPath = `${createAlbumPath(
-        userID,
-        artistID,
-        albumID,
-        albumName
-    )}cover_${albumID}.jpg`
+    const coverPath = createAlbumCoverPath(userID, artistID, albumID)
     logger.info(
-        `${'AudioStorage#storeAlbumCover: Speichere AlbumCover  (Pfad: '}${coverPath})`
+        `AudioStorage#storeAlbumCover: Save AlbumCover  (Path: ${coverPath})`
     )
     await LocalStorage.writeToStorage(coverPath, jpeg.getData)
     return coverPath
+}
+
+type StoreAudioFileParams = {
+    userID: string
+    artistID: string
+    albumID: string
+    trackID: string
+    audio: FLAC
+}
+
+const storeAudioFile = async (storeAudioFileParams: StoreAudioFileParams) => {
+    const { userID, artistID, albumID, trackID, audio } = storeAudioFileParams
+    const trackPath = createTrackPath(userID, artistID, albumID, trackID)
+
+    logger.info(
+        `AudioStorage#storeAudioFile: Save AudioFile  (Path: ${trackPath})`
+    )
+    await LocalStorage.writeToStorage(trackPath, audio.getData())
+    return trackPath
 }
 
 const storeArtistImage = async (
@@ -37,12 +46,9 @@ const storeArtistImage = async (
     artistID: string,
     jpeg: JPEG
 ) => {
-    const imagePath = `${createArtistPath(
-        userID,
-        artistID
-    )}image_${artistID}.jpg`
+    const imagePath = createArtistImagePath(userID, artistID)
     logger.info(
-        `${'AudioStorage#storeArtistImage: Speichere ArtistImage  (Pfad: '}${imagePath})`
+        `AudioStorage#storeArtistImage: Save ArtistImage  (Path: ${imagePath})`
     )
 
     await LocalStorage.writeToStorage(imagePath, jpeg.getData)
@@ -52,6 +58,7 @@ const storeArtistImage = async (
 const AudioStorage = {
     storeAlbumCover,
     storeArtistImage,
+    storeAudioFile,
 }
 
 export default AudioStorage

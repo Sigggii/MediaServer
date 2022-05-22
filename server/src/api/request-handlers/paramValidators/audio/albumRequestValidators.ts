@@ -1,5 +1,8 @@
 import { JSONSchemaType } from 'ajv'
-import { ICreateAlbumParamRequestWithoutImage } from '../../../../service/audio/interfaces/params/albumParams'
+import {
+    IAddTrackParamRequestWithoutImage,
+    ICreateAlbumParamRequestWithoutImage,
+} from '../../../../service/audio/interfaces/params/albumParams'
 import ajv from '../ajvInstance'
 import {
     AlbumType,
@@ -19,6 +22,29 @@ const createAlbumRequestSchema: JSONSchemaType<ICreateAlbumParamRequestWithoutIm
         required: ['title', 'artistID', 'albumType', 'audioType', 'genre'],
     }
 
-const createAlbumRequestValidation = ajv.compile(createAlbumRequestSchema)
+export const createAlbumRequestValidation = ajv.compile(
+    createAlbumRequestSchema
+)
 
-export default createAlbumRequestValidation
+const addTrackRequestSchema: JSONSchemaType<IAddTrackParamRequestWithoutImage> =
+    {
+        type: 'object',
+        properties: {
+            title: { type: 'string' },
+            albumID: { type: 'string' },
+            features: { type: 'array', items: { type: 'string' } },
+            genre: { type: 'string' },
+            releaseDate: { type: 'string' },
+            titleNumber: { type: 'number' },
+        },
+        required: [
+            'title',
+            'albumID',
+            'features',
+            'genre',
+            'releaseDate',
+            'titleNumber',
+        ],
+    }
+
+export const addTrackRequestValidation = ajv.compile(addTrackRequestSchema)

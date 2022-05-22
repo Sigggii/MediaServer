@@ -3,7 +3,7 @@ import JPEG from '../../../../shared/utils/file_types/images/JPEG'
 
 export type ICreateArtistParamRequestWithoutImage = Omit<
     ICreateArtistParams,
-    'user'
+    'userID'
 >
 
 export type ICreateArtistParamsRequest = {

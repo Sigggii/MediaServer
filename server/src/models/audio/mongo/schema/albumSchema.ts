@@ -1,8 +1,12 @@
 import { model, Schema } from 'mongoose'
-import { IAlbum, AlbumType, AudioType } from '../../interfaces/mongo/album'
+import {
+    AlbumType,
+    AudioType,
+    IAlbumWithoutID,
+} from '../../interfaces/mongo/album'
 import trackSchema from './trackSchema'
 
-const albumSchema = new Schema<IAlbum>({
+const albumSchema = new Schema<IAlbumWithoutID>({
     userID: { type: Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
     artistID: { type: Schema.Types.ObjectId, required: true },
@@ -10,7 +14,7 @@ const albumSchema = new Schema<IAlbum>({
     albumType: { type: String, enum: AlbumType, required: true },
     audioType: { type: String, enum: AudioType, required: true },
     tracks: { type: [trackSchema], required: true, default: () => [] },
-    coverPath: { type: String, required: false },
+    coverPath: { type: String, required: false, select: false },
 })
 
 const AlbumModel = model('album', albumSchema)
