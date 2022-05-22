@@ -21,8 +21,20 @@ import createCreateAlbumParamRequestMock from '../../testUtilities/mocks/service
 import getMockID from '../../testUtilities/utils/modelID'
 import createTrackWithoutPathMock from '../../testUtilities/mocks/models/audio/entities/trackMocks'
 import { createValidFlac } from '../../testUtilities/testData/shared/file_typesTestData'
+import setupDotEnv from '../../testUtilities/setup/dotEnvSetup'
 
 describe('AlbumService Test', () => {
+    const realEnv = process.env
+    beforeEach(() => {
+        jest.resetModules()
+        process.env = { ...realEnv }
+        setupDotEnv()
+    })
+
+    afterAll(() => {
+        process.env = realEnv
+    })
+
     describe('createAlbum', () => {
         it('handles valid Input correctly', async () => {
             const albumMock = createAlbumWithoutCoverPathMock()
