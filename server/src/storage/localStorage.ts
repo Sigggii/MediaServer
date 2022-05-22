@@ -3,11 +3,10 @@ import fs from 'fs'
 import { ReadFromStorage, Storage, WriteToStorage } from './interfaces/storage'
 import DotEnvManager from '../base/envVariableManager/dotEnvManager'
 
-const storagePath = DotEnvManager.getEnvVariable('STORAGE_PATH')
-
 const fsPromises = fs.promises
 
-const getFullPath = (filepath: string) => storagePath + filepath
+const getFullPath = (filepath: string) =>
+    DotEnvManager.getEnvVariable('STORAGE_PATH') + filepath
 
 const writeToStorage: WriteToStorage = async (
     filepath: string,

@@ -25,6 +25,7 @@ import setupDotEnv from '../../testUtilities/setup/dotEnvSetup'
 
 describe('AlbumService Test', () => {
     const realEnv = process.env
+
     beforeEach(() => {
         jest.resetModules()
         process.env = { ...realEnv }
