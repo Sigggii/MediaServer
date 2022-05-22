@@ -1,33 +1,31 @@
 import Koa from 'koa'
 import json from 'koa-json'
-import { mainAllowedMethods, mainRoutes } from './api/routes/mainRouter'
 import mongoose from 'mongoose'
-import dotenv from 'dotenv'
 import bodyParser from 'koa-bodyparser'
-import { DotEnvManager } from './base/envVariableManager/dotEnvManager'
-import { apiLogging } from './api/middleware/shared/api-logging'
-import { errorHandler } from './api/middleware/shared/error_handler'
+import DotEnvManager from './base/envVariableManager/dotEnvManager'
+import apiLogging from './api/middleware/shared/api-logging'
+import errorHandler from './api/middleware/shared/error_handler'
+import ParamValidator from './api/middleware/shared/param-validator/param-validator'
+import { mainAllowedMethods, mainRoutes } from './api/routes/mainRouter'
 
-//load dotenv file
-dotenv.config()
-
-//Connect to MongoDB
+// Connect to MongoDB
 const mongoDBConnectString = DotEnvManager.getEnvVariable(
     'DB_CONNECTION_STRING'
 )
 mongoose.connect(mongoDBConnectString, { dbName: 'media-server' })
 
-//API
+// API
 const app = new Koa()
 
-//Middleware
+// Middleware
 app.use(errorHandler)
+app.use(ParamValidator.handleParamValidationError)
 app.use(json())
 app.use(bodyParser())
 app.use(apiLogging)
 
-//Routes
+// Routes
 app.use(mainRoutes).use(mainAllowedMethods)
 
-//Start Server
+// Start Server
 app.listen('3001')

@@ -1,14 +1,16 @@
 import { model, Schema } from 'mongoose'
-import { AudioPlaylist } from '../../interfaces/audioPlaylist'
-import { trackSchema } from './trackSchema'
+import { IAudioPlaylist } from '../../interfaces/mongo/audioPlaylist'
+import trackSchema from './trackSchema'
 
-const audioPlaylistSchema = new Schema<AudioPlaylist>({
+const audioPlaylistSchema = new Schema<IAudioPlaylist>({
     userID: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
     description: { type: String, required: false },
     createdAt: { type: Date, default: () => Date.now() },
     tracks: { type: [trackSchema], required: true },
-    imagePath: { type: String, required: false },
+    imagePath: { type: String, required: false, select: false },
 })
 
-export const audioPlaylistModel = model('audioPlaylist', audioPlaylistSchema)
+const AudioPlaylistModel = model('audioPlaylist', audioPlaylistSchema)
+
+export default AudioPlaylistModel

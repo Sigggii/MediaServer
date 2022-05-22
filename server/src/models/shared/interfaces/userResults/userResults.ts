@@ -1,19 +1,18 @@
 import { Result } from '../../../../shared/interfaces/utils/error_handling/result'
-import { User } from '../user'
-import { Types } from 'mongoose'
+import { IUser } from '../user'
 
-export type CreateUserError = {
+export type ICreateUserError = {
     sendable: true
     type: 'Create User'
     message: 'User with that Username already exists'
 }
 
-export type CreateUserResult = Promise<Result<User, CreateUserError>>
+export type ICreateUserResult = Promise<Result<IUser, ICreateUserError>>
 
-export type GetUserError = {
+export type IGetUserError = {
     sendable: false
     type: 'Get User'
     message: 'User doesnt exist'
 }
 
-export type GetUserResult = Promise<Result<User, GetUserError>>
+export type IGetUserResult = Promise<Result<IUser, IGetUserError>>

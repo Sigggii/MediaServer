@@ -1,17 +1,22 @@
-import { Album, AlbumType, AudioType } from '../../interfaces/album'
 import { model, Schema } from 'mongoose'
-import { trackSchema } from './trackSchema'
+import {
+    AlbumType,
+    AudioType,
+    IAlbumWithoutID,
+} from '../../interfaces/mongo/album'
+import trackSchema from './trackSchema'
 
-const albumSchema = new Schema<Album>({
+const albumSchema = new Schema<IAlbumWithoutID>({
     userID: { type: Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
-    artist: { type: Schema.Types.ObjectId, required: true },
+    artistID: { type: Schema.Types.ObjectId, required: true },
     genre: { type: String, required: true },
     albumType: { type: String, enum: AlbumType, required: true },
     audioType: { type: String, enum: AudioType, required: true },
-    tracks: { type: [trackSchema], required: true },
-    coverPath: { type: String, required: true },
-    albumPath: { type: String, required: true },
+    tracks: { type: [trackSchema], required: true, default: () => [] },
+    coverPath: { type: String, required: false, select: false },
 })
 
-export const albumSchemaModel = model('album', albumSchema)
+const AlbumModel = model('album', albumSchema)
+
+export default AlbumModel

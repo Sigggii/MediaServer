@@ -1,10 +1,10 @@
-import { DotEnvManager } from '../../../src/base/envVariableManager/dotEnvManager'
+import DotEnvManager from '../../../src/base/envVariableManager/dotEnvManager'
 
 describe('dotEnvManager Tests', () => {
     const realENV = process.env
 
     beforeEach(() => {
-        jest.resetModules() //clear cache
+        jest.resetModules() // clear cache
         process.env = { ...realENV }
     })
 

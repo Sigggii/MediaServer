@@ -1,14 +1,13 @@
 import PasswordValidator = require('password-validator')
 import {
     InvalidPasswordError,
-    ValidatePasswordError,
     ValidatePasswordResult,
 } from '../../interfaces/utils/auth/validatePasswordResult'
 import { makeErr, makeOk } from '../error_handling/result/result_helper'
-import { logger } from '../../../base/logging/logger'
+import logger from '../../../base/logging/logger'
 
 const passSchema = new PasswordValidator()
-//prettier-ignore
+// prettier-ignore
 passSchema
     .is().min(10, InvalidPasswordError.PASS_LENGTH)
     .has().lowercase(1, InvalidPasswordError.PASS_LOWERCASE)
@@ -17,9 +16,8 @@ passSchema
     .has().symbols(1, InvalidPasswordError.PASS_SYMBOL)
     .has().not().spaces(0,InvalidPasswordError.PASS_SPACE)
 
-const validatePassword = (password: string) => {
-    return passSchema.validate(password) as boolean
-}
+const validatePassword = (password: string) =>
+    passSchema.validate(password) as boolean
 
 const detailedPasswordValidation = (
     password: string
@@ -27,7 +25,7 @@ const detailedPasswordValidation = (
     const resultValidation = passSchema.validate(password, {
         details: true,
     }) as any[]
-    if (resultValidation.length == 0) {
+    if (resultValidation.length === 0) {
         logger.info(
             'PasswordValidation#detailedPasswordValidation: Password valid'
         )
@@ -39,9 +37,7 @@ const detailedPasswordValidation = (
     )
 
     logger.error(
-        'PasswordValidation#detailedPasswordValidation: Password invalid (' +
-            invalidMessages +
-            ')'
+        `PasswordValidation#detailedPasswordValidation: Password invalid (${invalidMessages})`
     )
     return makeErr({
         sendable: true,
@@ -50,7 +46,9 @@ const detailedPasswordValidation = (
     })
 }
 
-export const PasswordValidation = {
-    validatePassword: validatePassword,
-    detailedPasswordValidation: detailedPasswordValidation,
+const PasswordValidation = {
+    validatePassword,
+    detailedPasswordValidation,
 }
+
+export default PasswordValidation

@@ -2,19 +2,26 @@ export interface AuthUserInformation {
     userID: string
 }
 
-export type generateToken = (
+export type IGenerateToken = (
     playload: AuthUserInformation,
     expirationTime: number
 ) => Promise<string>
 
-type VerifyTokenResult = {
-    isValid: boolean
-    authUserInfo?: AuthUserInformation
+type IVerifyTokenValid = {
+    isValid: true
+    authUserInfo: AuthUserInformation
 }
 
-export type verifyToken = (token: string) => Promise<VerifyTokenResult>
+type IVerifyTokenInvalid = {
+    isValid: false
+    authUserInfo: undefined
+}
 
-export type AuthManager = {
-    generateToken: generateToken
-    verifyToken: verifyToken
+export type IVerifyTokenResult = IVerifyTokenValid | IVerifyTokenInvalid
+
+export type IVerifyToken = (token: string) => Promise<IVerifyTokenResult>
+
+export type IAuthManager = {
+    generateToken: IGenerateToken
+    verifyToken: IVerifyToken
 }
