@@ -1,6 +1,7 @@
 Analyse/*
 server/src/config/*
 **/.idea/*
+**/.vscode/*
 **/node_modules/*
 .env
 .env.*
