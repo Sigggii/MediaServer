@@ -27,7 +27,7 @@
 		border-bottom-right-radius: 53% 48%;
 		border-bottom-left-radius: 46% 52%;
 		border-style: solid;
-
+		box-shadow: 0 0 var(--blur, 3px) $secondary;
 		border-color: $secondary;
 	}
 
