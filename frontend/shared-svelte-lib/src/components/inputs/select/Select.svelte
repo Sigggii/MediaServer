@@ -9,8 +9,8 @@
 
 	let atLeastOpenedOnce = false
 	let showListContainer = false
-	let selectedItemTitle = selectItems.find((item) => item.value === selectedItem)?.title ?? null
-	$: isItemSelected = selectedItemTitle !== null
+	let selectedItemTitle = selectItems.find((item) => item.value === selectedItem)?.title ?? ''
+	$: isItemSelected = selectedItemTitle !== ''
 
 	const handleClick = () => {
 		showListContainer = !showListContainer
@@ -76,8 +76,9 @@
 		grid-row-end: body;
 		display: inline-flex;
 		border-style: solid;
-		border-radius: 0 0 5% 2%;
+		border-radius: 0 0 5% 2% / 0 0 2% 5%;
 		border-width: 0 0 2px 0;
+		box-shadow: 0px 4px 3px -5px $secondary;
 		border-color: $secondary;
 		color: $secondary;
 	}
@@ -107,6 +108,8 @@
 		display: none;
 		border-style: solid;
 		border-width: 0 0 2px 0;
+		border-radius: 0 0 5% 2% / 0 0 2% 2%;
+		box-shadow: 0px 4px 3px -5px $secondary;
 		border-color: $secondary;
 	}
 
@@ -118,6 +121,7 @@
 
 	.show-list-header {
 		border-width: 0 0 0 0;
+		box-shadow: 0 0 0 $secondary;
 	}
 
 	/*Label*/

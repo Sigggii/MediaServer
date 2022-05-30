@@ -4,6 +4,7 @@
 	import type { ISelectItem } from '../../../shared-svelte-lib/src/components/inputs/select/model'
 
 	const selectItems: ISelectItem[] = [
+		{ value: '', title: '' },
 		{ value: '1', title: 'Album' },
 		{ value: '2', title: 'Single' },
 		{ value: '3', title: 'Hörbuch' }

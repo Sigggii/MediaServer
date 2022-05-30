@@ -10,11 +10,17 @@
 	}
 </script>
 
-<div class:selected on:click={handleClick}>{title}</div>
+<div class:selected class:none={title === ''} on:click={handleClick}>
+	{title === '' ? 'None' : title}
+</div>
 
 <style lang="postcss">
 	div {
 		color: $secondary;
+	}
+
+	.none {
+		color: gray;
 	}
 
 	div:hover,
