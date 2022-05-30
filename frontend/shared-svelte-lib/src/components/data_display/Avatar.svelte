@@ -32,6 +32,7 @@
 	}
 
 	.hover:hover {
+		box-shadow: 0 0 var(--blur, 3px) $thirtary;
 		border-color: $thirtary;
 	}
 </style>
