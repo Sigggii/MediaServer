@@ -14,5 +14,5 @@
 	let selectedItem = ''
 </script>
 
-<Avatar {src} width={100} />
+<Avatar variant={'round'} {src} />
 <Select label={'Kategorie'} bind:selectedItem {selectItems} />
